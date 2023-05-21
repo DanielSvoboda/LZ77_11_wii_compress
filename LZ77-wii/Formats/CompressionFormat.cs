@@ -11,24 +11,6 @@ namespace DSDecmp
     public abstract class CompressionFormat
     {
         /// <summary>
-        /// Checks if the decompressor for this format supports the given file. Assumes the
-        /// file exists. Returns false when it is certain that the given file is not supported.
-        /// False positives may occur, as this method should not do any decompression, and
-        /// may mis-interpret a similar file format as compressed.
-        /// </summary>
-        /// <param name="file">The name of the file to check.</param>
-        /// <returns>False if the file can certainly not be decompressed using this decompressor.
-        /// True if the file may potentially be decompressed using this decompressor.</returns>
-        public virtual bool Supports(string file)
-        {
-            // open the file, and delegate to the decompressor-specific code.
-            using (FileStream fstr = new FileStream(file, FileMode.Open))
-            {
-                return this.Supports(fstr, fstr.Length);
-            }
-        }
-
-        /// <summary>
         /// Checks if the decompressor for this format supports the data from the given stream.
         /// Returns false when it is certain that the given data is not supported.
         /// False positives may occur, as this method should not do any decompression, and may
@@ -42,26 +24,7 @@ namespace DSDecmp
         /// True if the data may potentially be decompressed using this decompressor.</returns>
         public abstract bool Supports(Stream stream, long inLength);
 
-        /// <summary>
-        /// Decompresses the given file, writing the deocmpressed data to the given output file.
-        /// The output file will be overwritten if it already exists.
-        /// Assumes <code>Supports(infile)</code> returns <code>true</code>.
-        /// </summary>
-        /// <param name="infile">The file to decompress.</param>
-        /// <param name="outfile">The target location of the decompressed file.</param>
-        public virtual void Decompress(string infile, string outfile)
-        {
-            // make sure the output directory exists
-            string outDirectory = Path.GetDirectoryName(outfile);
-            if (!Directory.Exists(outDirectory))
-                Directory.CreateDirectory(outDirectory);
-            // open the two given files, and delegate to the format-specific code.
-            using (FileStream inStream = new FileStream(infile, FileMode.Open),
-                             outStream = new FileStream(outfile, FileMode.Create))
-            {
-                this.Decompress(inStream, inStream.Length, outStream);
-            }
-        }
+
 
         /// <summary>
         /// Decompresses the given stream, writing the decompressed data to the given output stream.
@@ -80,26 +43,7 @@ namespace DSDecmp
         /// is not enough to properly decompress the input.</exception>
         public abstract long Decompress(Stream instream, long inLength, Stream outstream);
 
-        /// <summary>
-        /// Compresses the given input file, and writes the compressed data to the given
-        /// output file.
-        /// </summary>
-        /// <param name="infile">The file to compress.</param>
-        /// <param name="outfile">The file to write the compressed data to.</param>
-        /// <returns>The size of the compressed file. If -1, the file could not be compressed.</returns>
-        public int Compress(string infile, string outfile)
-        {
-            // make sure the output directory exists
-            string outDirectory = Path.GetDirectoryName(outfile);
-            if (!Directory.Exists(outDirectory))
-                Directory.CreateDirectory(outDirectory);
-            // open the proper Streams, and delegate to the format-specific code.
-            using (FileStream inStream = File.Open(infile, FileMode.Open),
-                             outStream = File.Create(outfile))
-            {
-                return this.Compress(inStream, inStream.Length, outStream);
-            }
-        }
+
 
         /// <summary>
         /// Compresses the next <code>inLength</code> bytes from the input stream,

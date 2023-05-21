@@ -317,15 +317,13 @@ namespace DSDecmp.Formats.Nitro
 
 
 
-            //F0 0E 00 00 F0 0E 00 00 13 F0 0E 00
-            //outstream.WriteByte(0x4C);
+            // write the compression header first
+
+            //this has been included to work with (Paper Mario: Color Splash for the Wii U), if the test fails in other games it should be removed  :)
             byte[] byteArray = new byte[] { 0xF0, 0x0E, 0x00, 0x00, 0xF0, 0x0E, 0x00, 0x00, 0x13, 0xF0, 0x0E, 0x00 };
             outstream.Write(byteArray, 0, byteArray.Length);
 
-
-            // write the compression header first
             outstream.WriteByte(this.magicByte);       
-
             outstream.WriteByte((byte)(inLength & 0xFF));
             outstream.WriteByte((byte)((inLength >> 8) & 0xFF));
             outstream.WriteByte((byte)((inLength >> 16) & 0xFF));
