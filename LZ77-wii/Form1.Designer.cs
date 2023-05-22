@@ -63,7 +63,7 @@
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "LZ11 wii Compress";
+            Text = "LZ77 11 wii Compress";
             ResumeLayout(false);
             PerformLayout();
         }
