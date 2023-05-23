@@ -37,7 +37,7 @@ namespace LZ77_wii
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            ProcessStartInfo startInfo = new ProcessStartInfo("https://github.com/DanielSvoboda/LZ11_wii_compress");
+            ProcessStartInfo startInfo = new ProcessStartInfo("https://github.com/DanielSvoboda/LZ77_11_wii_compress");
             startInfo.UseShellExecute = true;
             Process.Start(startInfo);
         }
