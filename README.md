@@ -9,3 +9,5 @@
 
  The program has been tested with Paper Mario: Color Splash for the Wii U.
 
+ <img width="700" alt="portfolio_view" src="https://raw.githubusercontent.com/DanielSvoboda/LZ77_11_wii_compress/main/image2.png">
+
